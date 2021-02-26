@@ -40,8 +40,14 @@
                     <div class="field">
                         {{ Form::label('project_id', 'Project', array('class' => 'label')) }}
                         <div class="control">
-                            <?php $projects = \Tritiyo\Project\Models\Project::pluck('name', 'id')->prepend('Select Project', ''); ?>
-                            {{ Form::select('project_id', $projects, $site->project_id ?? NULL, ['class' => 'input']) }}
+                            <?php $projects = \Tritiyo\Project\Models\Project::select('name', 'id')->get(); ?>
+                            
+                            <select name="project_id" class="input">
+                                <option selected disabled>Select Project</option>
+                                @foreach($projects as $project)
+                                <option value="{{$project->id}}" >{{$project->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
