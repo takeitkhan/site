@@ -31,8 +31,8 @@
 </section>
 
 @section('column_left')
-    <div class="columns is-multiline">
-        @if(!empty($sites))
+    @if(!empty($sites))
+        <div class="columns is-multiline">
             @foreach($sites as $site)
                 <div class="column is-2">
                     <div class="borderedCol">
@@ -83,6 +83,9 @@
                     </div>
                 </div>
             @endforeach
-        @endif
-    </div>
+        </div>
+        <div class="pagination_wrap pagination is-centered">
+            {{$sites->links('pagination::bootstrap-4')}}
+        </div>
+    @endif
 @endsection

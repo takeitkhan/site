@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="columns">
-                 <div class="column is-3">
+                <div class="column is-3">
                     <div class="field">
                         {{ Form::label('budget', 'Budget', array('class' => 'label')) }}
                         <div class="control">

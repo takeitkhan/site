@@ -22,6 +22,7 @@ class CreateSitesTable extends Migration
             $table->string('material')->nullable();
             $table->string('site_head')->nullable();
             $table->string('budget')->nullable();
+            $table->enum('completion_status', ['Running', 'Rejected', 'Completed'])->nullable();
             $table->timestamps();
         });
     }
