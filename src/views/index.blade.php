@@ -75,7 +75,7 @@
                                             <span class="icon is-info is-small"><i class="fas fa-edit"></i></span>
                                         </a>
 
-                                        {!! delete_data('sites.destroy',  $site->id) !!}
+                                        {{--                                        {!! delete_data('sites.destroy',  $site->id) !!}--}}
                                     </div>
                                 </nav>
                             </div>
