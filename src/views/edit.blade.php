@@ -63,17 +63,28 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="columns">
                 <div class="column is-3">
                     <div class="field">
-                        {{ Form::label('budget', 'Budget', array('class' => 'label')) }}
+                        {{ Form::label('completion_status', 'Completion Status', array('class' => 'label')) }}
                         <div class="control">
-                            {{ Form::text('budget', $site->budget ?? NULL, ['class' => 'input', 'placeholder' => 'Enter budget...']) }}
+                            @php
+                                $completion_statuses = ['Running', 'Rejected', 'Completed'];
+                            @endphp
+                            {{ Form::select('completion_status', $completion_statuses, $site->completion_status ?? NULL, ['class' => 'input', 'required' => true]) }}
                         </div>
                     </div>
                 </div>
             </div>
+            {{--            <div class="columns">--}}
+            {{--                <div class="column is-3">--}}
+            {{--                    <div class="field">--}}
+            {{--                        {{ Form::label('budget', 'Budget', array('class' => 'label')) }}--}}
+            {{--                        <div class="control">--}}
+            {{ Form::hidden('budget', $site->budget ?? NULL, ['class' => 'input', 'placeholder' => 'Enter budget...']) }}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
             <div class="columns">
                 <div class="column">
                     <div class="field is-grouped">
@@ -89,12 +100,12 @@
 @endsection
 
 @section('column_right')
-    <article class="is-primary">
-        <div class="box">
-            <h1 class="title is-5">Important Note</h1>
-            <p>
-                Please select project manager and budget properly
-            </p>
-        </div>
-    </article>
+    {{--    <article class="is-primary">--}}
+    {{--        <div class="box">--}}
+    {{--            <h1 class="title is-5">Important Note</h1>--}}
+    {{--            <p>--}}
+    {{--                Please select project manager and budget properly--}}
+    {{--            </p>--}}
+    {{--        </div>--}}
+    {{--    </article>--}}
 @endsection

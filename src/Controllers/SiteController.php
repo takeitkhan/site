@@ -56,8 +56,7 @@ class SiteController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'project_id' => 'required',
-                'site_code' => 'required',
-                'budget' => 'required'
+                'site_code' => 'required'
             ]
         );
 
@@ -73,6 +72,7 @@ class SiteController extends Controller
                 'location' => $request->location,
                 'site_code' => $request->site_code,
                 'budget' => $request->budget,
+                'completion_status' => 'Running',
             ];
 
             try {
@@ -121,6 +121,7 @@ class SiteController extends Controller
             'location' => $request->location,
             'site_code' => $request->site_code,
             'budget' => $request->budget,
+            'completion_status' => $request->completion_status,
         ];
 
         try {

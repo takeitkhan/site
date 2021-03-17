@@ -45,19 +45,20 @@
                                             <a href="{{ route('sites.show', $site->id) }}"
                                                title="View route">
                                                 {{ $site->site_code }}
-
                                             </a>
                                         </strong>
                                         <br/>
                                         <small>
-                                            <strong>Location: </strong> {{ $site->location }},
+                                            <strong>Location: </strong> {{ $site->location }}
+                                            <br/>
                                             <strong>Project: </strong>
-                                            @php $project = \Tritiyo\Project\Models\Project::where('id', $site->project_id)->first() @endphp
+                                            @php
+                                                $project = \Tritiyo\Project\Models\Project::where('id', $site->project_id)->first()
+                                            @endphp
                                             {{  $project->name }}
-                                        </small>
-                                        <br/>
-                                        <small>
-                                            <strong>Budget:</strong> {{ $site->budget }}
+                                            <br/>
+                                            <strong>Task Created: </strong>
+                                            {{ $site->created_at }}
                                         </small>
                                         <br/>
                                     </p>
@@ -69,11 +70,13 @@
                                            title="View user data">
                                             <span class="icon is-small"><i class="fas fa-eye"></i></span>
                                         </a>
-                                        <a href="{{ route('sites.edit', $site->id) }}"
-                                           class="level-item"
-                                           title="View all transaction">
-                                            <span class="icon is-info is-small"><i class="fas fa-edit"></i></span>
-                                        </a>
+                                        @if(auth()->user()->isAdmin(auth()->user()->id))
+                                            <a href="{{ route('sites.edit', $site->id) }}"
+                                               class="level-item"
+                                               title="View all transaction">
+                                                <span class="icon is-info is-small"><i class="fas fa-edit"></i></span>
+                                            </a>
+                                        @endif
 
                                         {{--                                        {!! delete_data('sites.destroy',  $site->id) !!}--}}
                                     </div>

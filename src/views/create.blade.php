@@ -63,16 +63,16 @@
                     </div>
                 </div>
             </div>
-            <div class="columns">
-                 <div class="column is-3">
-                    <div class="field">
-                        {{ Form::label('budget', 'Budget', array('class' => 'label')) }}
-                        <div class="control">
-                            {{ Form::text('budget', $site->budget ?? NULL, ['class' => 'input', 'placeholder' => 'Enter budget...']) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{--            <div class="columns">--}}
+            {{--                 <div class="column is-3">--}}
+            {{--                    <div class="field">--}}
+            {{--                        {{ Form::label('budget', 'Budget', array('class' => 'label')) }}--}}
+            {{--                        <div class="control">--}}
+            {{ Form::hidden('budget', $site->budget ?? NULL, ['class' => 'input', 'placeholder' => 'Enter budget...']) }}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
             <div class="columns">
                 <div class="column">
                     <div class="field is-grouped">
