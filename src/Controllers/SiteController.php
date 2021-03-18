@@ -147,4 +147,20 @@ class SiteController extends Controller
         $this->site->delete($id);
         return redirect()->back()->with(['status' => 1, 'message' => 'Successfully deleted']);
     }
+
+
+    public function search(Request $request) {
+
+        if(!empty($request->key)) {
+            $default = [
+                'search_key' => $request->key ?? '',
+                'limit' => 10,
+                'offset' => 0
+            ];        
+            $sites = $this->site->getDataByFilter($default);            
+        } else {
+            $sites = $this->site->getAll();        
+        }
+        return view('site::index', ['sites' => $sites]);        
+    }
 }

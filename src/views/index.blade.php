@@ -24,6 +24,9 @@
         @include('component.filter_set', [
             'spShowFilterSet' => true,
             'spPlaceholder' => 'Search sites...',
+            'spAddUrl' => route('sites.create'),
+            'spAllData' => route('sites.index'),
+            'spSearchData' => route('sites.search'),
             'spMessage' => $message = $message ?? NULl,
             'spStatus' => $status = $status ?? NULL
         ])
@@ -34,6 +37,7 @@
     @if(!empty($sites))
         <div class="columns is-multiline">
             @foreach($sites as $site)
+            {{-- @dump($site) --}}
                 <div class="column is-2">
                     <div class="borderedCol">
                         <article class="media">

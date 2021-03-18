@@ -31,12 +31,10 @@ class SiteEloquent implements SiteInterface
     {
         $default = [
             'search_key' => null,
-            'column' => !empty($field) ? $field : null,
-            'sort_type' => !empty($type) ? $type : null,
             'limit' => 10,
             'offset' => 0
         ];
-        $no = array_merge($default, $options);
+        $no = array_merge($default, $options);         
 
         if (!empty($no['limit'])) {
             $limit = $no['limit'];
@@ -56,45 +54,30 @@ class SiteEloquent implements SiteInterface
             $orderBy = 'id desc';
         }
 
-        if (!empty($no['search_key']) && $no['search_key'] != 'undefined') {
-            if ($totalrowcount == true) {
-                return $this->model
-                    ->orWhere('name', 'like', "%{$no['search_key']}%")
-                    ->paginate($limit)
-                    ->get()->count();
-            } else {
-                return $this->model
-                    //->leftJoin('productcategories', function ($join) {
-                    //    $join->on('products.id', '=', 'productcategories.main_pid');
-                    //})
-                    ->paginate($limit)
-                    //->toSql();
-                    ->get();
-            }
+        if (!empty($no['search_key'])) {
+            $sites = $this->model
+            ->leftjoin('projects', 'projects.id', 'sites.project_id')
+            ->select('sites.*', 'projects.name', 'projects.code', 'projects.type', 'projects.customer')
+            ->where('project_id', 'LIKE', '%'.$no['search_key'].'%')
+            ->orWhere('sites.location', 'LIKE', '%'.$no['search_key'].'%')
+            ->orWhere('sites.site_code', 'LIKE', '%'.$no['search_key'].'%')
+            ->orWhere('sites.material', 'LIKE', '%'.$no['search_key'].'%')
+            ->orWhere('sites.site_head', 'LIKE', '%'.$no['search_key'].'%')
+            ->orWhere('sites.budget', 'LIKE', '%'.$no['search_key'].'%')
+            ->orWhere('projects.name', 'LIKE', '%'.$no['search_key'].'%')
+            //->toSql();
+            ->orWhere('projects.code', 'LIKE', '%'.$no['search_key'].'%')
+            ->orWhere('projects.type', 'LIKE', '%'.$no['search_key'].'%')
+            ->orWhere('projects.customer', 'LIKE', '%'.$no['search_key'].'%')
+            ->paginate('48');
+
+            //dd($sites);
         } else {
-            if ($totalrowcount == true) {
-                return $this->model
-                    ->whereRaw('parent_id IS NULL')
-                    //->whereRaw('FIND_IN_SET(' . implode(',', $categories) . ', categories)')
-                    //->whereRaw($price_btw)
-                    //->orderByRaw($orderBy)
-                    ->get()->count();
-            } else {
-                return $this->model
-                    ->leftJoin('productcategories AS pc', function ($join) {
-                        $join->on('products.id', '=', 'pc.main_pid');
-                    })
-                    //->whereIn('pc.term_id', $no['category'])
-                    //->whereRaw('parent_id IS NULL')
-                    //->whereRaw($price_btw)
-                    //->orderByRaw($orderBy)
-                    //->offset($offset)->limit($limit)
-                    //->toSql();
-                    //->select(['products.*', 'pc.*', 'products.id AS proid'])
-                    //->orderBy('products.id', 'desc')
-                    ->paginate(5);
-            }
+            $sites = [];
         }
+
+        //dd($sites);
+        return $sites;
     }
 
 
