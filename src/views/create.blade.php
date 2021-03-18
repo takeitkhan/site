@@ -42,7 +42,7 @@
                         {{ Form::label('project_id', 'Project', array('class' => 'label')) }}
                         <div class="control">
                             <?php $projects = \Tritiyo\Project\Models\Project::pluck('name', 'id')->prepend('Select Project', ''); ?>
-                            {{ Form::select('project_id', $projects, $site->project_id ?? NULL, ['class' => 'input']) }}
+                            {{ Form::select('project_id', $projects, $site->project_id ?? NULL, ['class' => 'input is-small']) }}
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     <div class="field">
                         {{ Form::label('location', 'Location', array('class' => 'label')) }}
                         <div class="control">
-                            {{ Form::text('location', $site->location ?? NULL, ['class' => 'input', 'placeholder' => 'Enter location...']) }}
+                            {{ Form::text('location', $site->location ?? NULL, ['class' => 'input is-small', 'placeholder' => 'Enter location...']) }}
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                     <div class="field">
                         {{ Form::label('site_code', 'Site Code', array('class' => 'label')) }}
                         <div class="control">
-                            {{ Form::text('site_code', $site->site_code ?? NULL, ['class' => 'input', 'placeholder' => 'Enter Site Code...']) }}
+                            {{ Form::text('site_code', $site->site_code ?? NULL, ['class' => 'input is-small', 'placeholder' => 'Enter Site Code...']) }}
                         </div>
                     </div>
                 </div>

@@ -70,7 +70,7 @@
                                            title="View user data">
                                             <span class="icon is-small"><i class="fas fa-eye"></i></span>
                                         </a>
-                                        @if(auth()->user()->isAdmin(auth()->user()->id))
+                                        @if(auth()->user()->isAdmin(auth()->user()->id) || auth()->user()->isApprover(auth()->user()->id))
                                             <a href="{{ route('sites.edit', $site->id) }}"
                                                class="level-item"
                                                title="View all transaction">
