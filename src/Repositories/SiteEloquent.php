@@ -24,7 +24,7 @@ class SiteEloquent implements SiteInterface
         return $this->model
                ->orderBy('id', 'desc')
                //->take(100)
-               ->paginate(10);
+               ->paginate(30);
     }
 
     public function getDataByFilter(array $options = [])
