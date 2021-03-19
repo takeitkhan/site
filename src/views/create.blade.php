@@ -22,6 +22,9 @@
 
         @include('component.filter_set', [
             'spShowFilterSet' => true,
+            'spAddUrl' => route('sites.create'),
+            'spAllData' => route('sites.index'),
+            'spSearchData' => route('sites.search'),
             'spPlaceholder' => 'Search sites...',
             'spMessage' => $message = $message ?? NULl,
             'spStatus' => $status = $status ?? NULL
