@@ -122,4 +122,13 @@ class SiteEloquent implements SiteInterface
         $this->getById($id)->delete();
         return true;
     }
+
+    /**
+    * @param $column
+    * @param $value
+    */
+    public function getByAnyWithPaginate($column, $value)
+    {
+        return $this->model->where($column, $value)->paginate(20);
+    }
 }

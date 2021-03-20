@@ -14,5 +14,7 @@ interface SiteInterface
     public function update($id, array $attributes);
 
     public function delete($id);
+    
+    public function getByAnyWithPaginate($column, $value);
 
 }
