@@ -1,4 +1,5 @@
 <?php
+
 namespace Tritiyo\Site\Repositories;
 
 use Tritiyo\Site\Models\Site;
@@ -22,9 +23,9 @@ class SiteEloquent implements SiteInterface
     public function getAll()
     {
         return $this->model
-               ->orderBy('id', 'desc')
-               //->take(100)
-               ->paginate(30);
+            ->orderBy('id', 'desc')
+            //->take(100)
+            ->paginate(30);
     }
 
     public function getDataByFilter(array $options = [])
@@ -34,7 +35,8 @@ class SiteEloquent implements SiteInterface
             'limit' => 10,
             'offset' => 0
         ];
-        $no = array_merge($default, $options);         
+        $no = array_merge($default, $options);
+        //dd($no);
 
         if (!empty($no['limit'])) {
             $limit = $no['limit'];
@@ -55,26 +57,58 @@ class SiteEloquent implements SiteInterface
         }
 
         if (!empty($no['search_key'])) {
+            //dd($no['search_key']);
+            /*
             $sites = $this->model
-            ->leftjoin('projects', 'projects.id', 'sites.project_id')
-            ->select('sites.*', 'projects.name', 'projects.code', 'projects.type', 'projects.customer')
-            ->where('project_id', 'LIKE', '%'.$no['search_key'].'%')
-            ->orWhere('sites.location', 'LIKE', '%'.$no['search_key'].'%')
-            ->orWhere('sites.site_code', 'LIKE', '%'.$no['search_key'].'%')
-            ->orWhere('sites.material', 'LIKE', '%'.$no['search_key'].'%')
-            ->orWhere('sites.site_head', 'LIKE', '%'.$no['search_key'].'%')
-            ->orWhere('sites.budget', 'LIKE', '%'.$no['search_key'].'%')
-            ->orWhere('projects.name', 'LIKE', '%'.$no['search_key'].'%')
-            //->toSql();
-            ->orWhere('projects.code', 'LIKE', '%'.$no['search_key'].'%')
-            ->orWhere('projects.type', 'LIKE', '%'.$no['search_key'].'%')
-            ->orWhere('projects.customer', 'LIKE', '%'.$no['search_key'].'%')
-            ->paginate('48');
+                ->leftjoin('projects', 'projects.id', 'sites.project_id')
+                ->select('sites.*', 'projects.name', 'projects.code', 'projects.type', 'projects.customer', '(SELECT name FROM users WHERE id = projects.manager) AS manager')
+                ->where('project_id', 'LIKE', '%' . $no['search_key'] . '%')
+                ->orWhere('sites.location', 'LIKE', '%' . $no['search_key'] . '%')
+                ->orWhere('sites.site_code', 'LIKE', '%' . $no['search_key'] . '%')
+                ->orWhere('sites.material', 'LIKE', '%' . $no['search_key'] . '%')
+                ->orWhere('sites.site_head', 'LIKE', '%' . $no['search_key'] . '%')
+                ->orWhere('sites.budget', 'LIKE', '%' . $no['search_key'] . '%')
+                ->orWhere('sites.completion_status', 'LIKE', '%' . $no['search_key'] . '%')
 
-            //dd($sites);
+                ->orWhere('projects.name', 'LIKE', '%' . $no['search_key'] . '%')
+                ->orWhere('projects.code', 'LIKE', '%' . $no['search_key'] . '%')
+                ->orWhere('projects.type', 'LIKE', '%' . $no['search_key'] . '%')
+                ->orWhere('projects.customer', 'LIKE', '%' . $no['search_key'] . '%')
+                ->orWhere('manager', 'LIKE', '%' . $no['search_key'] . '%')
+                ->toSql();
+                //->paginate('48');
+            dd($sites);
+            */
+
+            //Nipun
+            $key = $no['search_key'];
+            $sites = Site::leftjoin('projects', 'projects.id', 'sites.project_id')
+                ->leftjoin('users', 'users.id', 'projects.manager')
+                ->select('sites.*', 'projects.name', 'projects.code', 'projects.type', 'projects.customer','users.name')
+                ->where('sites.project_id' ,'LIKE', '%'.$key.'%')
+                ->orWhere('sites.location' ,'LIKE', '%'.$key.'%')
+                ->orWhere('sites.site_code' ,'LIKE', '%'.$key.'%')
+                ->orWhere('sites.material' ,'LIKE', '%'.$key.'%')
+                ->orWhere('sites.site_head' ,'LIKE', '%'.$key.'%')
+                ->orWhere('sites.budget' ,'LIKE', '%'.$key.'%')
+                ->orWhere('sites.completion_status' ,'LIKE', '%'.$key.'%')
+                ->orWhere('projects.name' ,'LIKE', '%'.$key.'%')
+                ->orWhere('projects.code' ,'LIKE', '%'.$key.'%')
+                ->orWhere('projects.type' ,'LIKE', '%'.$key.'%')
+                ->orWhere('projects.customer' ,'LIKE', '%'.$key.'%')
+                ->orWhere('users.name' ,'LIKE', '%'.$key.'%')
+                ->paginate('48');
+
+            //End
+
         } else {
             $sites = [];
         }
+
+
+
+
+
 
         //dd($sites);
         return $sites;
@@ -90,9 +124,9 @@ class SiteEloquent implements SiteInterface
     }
 
     /**
-    * @param $column
-    * @param $value
-    */
+     * @param $column
+     * @param $value
+     */
     public function getByAny($column, $value)
     {
         return $this->model->where($column, $value)->get();
@@ -124,9 +158,9 @@ class SiteEloquent implements SiteInterface
     }
 
     /**
-    * @param $column
-    * @param $value
-    */
+     * @param $column
+     * @param $value
+     */
     public function getByAnyWithPaginate($column, $value)
     {
         return $this->model->where($column, $value)->paginate(20);

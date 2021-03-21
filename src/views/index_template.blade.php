@@ -16,7 +16,7 @@
                         <strong>
                             <strong>Code: </strong>
                             <a href="{{ route('sites.show', $site->id) }}"
-                               title="View route">
+                               title="View site">
                                 {{ $site->site_code }}
                             </a>
                         </strong>
@@ -43,7 +43,7 @@
                             @endphp
                             <a href="{{ route('hidtory.user', $pm) }}"
                                target="_blank"
-                               title="View project">
+                               title="View project manager">
                                 {{ $pm_name }}
                             </a>
                             <br/>
