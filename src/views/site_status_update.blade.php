@@ -50,6 +50,7 @@
             <input type="checkbox" id="select_all" class="mr-1">  Select All
         </label>
         <button type="submit" class="button is-link is-small">Submit as completed</button>
+        <button class="button is-link is-light is-small">Submit as Running</button>
     </form>
 
     <?php  //dump($t); ?>
