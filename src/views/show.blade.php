@@ -106,6 +106,7 @@
             </div>
         </div>
     </div>
+    @include('site::excel_with_show');
     @php
         $moves = \Tritiyo\Task\Models\TaskSite::where('site_id', $site->id)->groupBy('task_id')->get();
     @endphp
@@ -215,7 +216,7 @@
                                     FROM (SELECT task_id FROM `tasks_site` WHERE site_id = '. $site->id .' GROUP BY task_id) AS tasks_for_this_site');
         //dd($vehicle_used);
     @endphp
-    @if(count($vehicle_used) > 0)
+    @if(!empty($vehicle_used) && $vehicle_used[0]->vehiclesss != null)
         <div class="card tile is-child" style="margin-top: 15px !important;">
             <header class="card-header">
                 <p class="card-header-title">
@@ -264,8 +265,9 @@
     @php
         $material_used = \DB::select('SELECT task_id, (SELECT GROUP_CONCAT(material_id) FROM tasks_material WHERE tasks_material.task_id = tasks_for_this_site.task_id) AS materialsss
                         FROM (SELECT task_id FROM `tasks_site` WHERE site_id = '. $site->id .' GROUP BY task_id) AS tasks_for_this_site');
+    //dd($material_used);
     @endphp
-    @if(count($material_used) > 0)
+    @if(!empty($material_used) && $material_used[0]->materialsss  != null)
         <div class="card tile is-child" style="margin-top: 15px !important;">
             <header class="card-header">
                 <p class="card-header-title">
